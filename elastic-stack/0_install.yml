@@ -5,7 +5,6 @@
   vars_files:
     - vars.yml
 
-
   tasks:
 
   - name: Get the platform (i386 or amd64) of the virtual machine
@@ -47,12 +46,6 @@
   - name: Install dependencies to manage PostgreSQL
     pip: name=psycopg2
 
-
-  - name: Install PostgreSQL
-    apt: name={{ item }} state=latest
-    with_items:
-      - postgresql
-      - postgresql-contrib
 
   - name: Install dependencies for SQLsmith
     apt: name={{ item }} state=latest
@@ -103,47 +96,6 @@
     service: name=logstash enabled=yes state=stopped
 
 
-  - name: Get Filebeat
-    get_url:
-      url={{ elastic_download }}/downloads/beats/filebeat/filebeat-{{ elastic_version }}-{{ platform }}.deb
-      dest=/opt/filebeat.deb
-
-  - name: Install Filebeat
-    apt: deb=/opt/filebeat.deb
-
-  - name: Get Heartbeat
-    get_url:
-      url={{ elastic_download }}/downloads/beats/heartbeat/heartbeat-{{ elastic_version }}-{{ platform }}.deb
-      dest=/opt/heartbeat.deb
-
-  - name: Install Heartbeat
-    apt: deb=/opt/heartbeat.deb
-
-  - name: Get Metricbeat
-    get_url:
-      url={{ elastic_download }}/downloads/beats/metricbeat/metricbeat-{{ elastic_version }}-{{ platform }}.deb
-      dest=/opt/metricbeat.deb
-
-  - name: Install Metricbeat
-    apt: deb=/opt/metricbeat.deb
-
-  - name: Get Packetbeat
-    get_url:
-      url={{ elastic_download }}/downloads/beats/packetbeat/packetbeat-{{ elastic_version }}-{{ platform }}.deb
-      dest=/opt/packetbeat.deb
-
-  - name: Install Packetbeat
-    apt: deb=/opt/packetbeat.deb
-
-  - name: Make sure Filebeat, Heartbeat, Metricbeat, and Packetbeat autostart, but are stopped until they are properly configured
-    service: name={{ item }} enabled=yes state=stopped
-    with_items:
-      - filebeat
-      - heartbeat
-      - metricbeat
-      - packetbeat
-
-
   - name: Get Kibana
     get_url:
       url={{ elastic_download }}/downloads/kibana/kibana-{{ elastic_version }}-{{ platform }}.deb
@@ -182,10 +134,3 @@
     with_items:
       - all.sh
       - fix-time.sh
-
-
-  - name: Get the injector plugin to generate test data
-    get_url:
-      url=https://download.elastic.co/workshops/basic-kibana/injector/injector-5.3.jar
-      dest=/opt/injector.jar
-      mode=0755
