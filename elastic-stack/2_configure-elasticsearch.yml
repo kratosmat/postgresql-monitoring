@@ -1,8 +1,9 @@
 ---
 
-- hosts: localhost
+- hosts: elk-postgres
   become: true
-
+  vars_files:
+    - vars.yml
 
   tasks:
 
@@ -107,11 +108,11 @@
   - name: Wait for Elasticsearch to become available
     wait_for:
       port: 9200
-      delay: 5
+      delay: 30
 
   - name: Set the number of shards to two and the number of replicas to 0
     command: >
-      curl -XPUT 'http://localhost:9200/_template/default'
+      curl -XPUT 'http://elk-postgres:9200/_template/default'
            -H "Content-Type: application/json"
            -u "{{ elastic_user }}:{{ elastic_password }}"
            -d '{

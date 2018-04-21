@@ -2,7 +2,12 @@ elastic_version: 5.5.0
 elastic_download: https://artifacts.elastic.co
 elastic_user: elastic
 elastic_password: changeme
+elastic_host: elk-postgres
+elastic_platform: amd64
 
 postgresql_database: elastic
 postgresql_user: elastic
 postgresql_password: changeme
+postgresql_host: PGDBVIP.sinfi.it
+
+logstash_host: elk-postgres

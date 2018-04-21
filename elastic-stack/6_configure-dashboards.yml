@@ -1,6 +1,6 @@
 ---
 
-- hosts: localhost
+- hosts: postgresql
   become: true
   vars_files:
     - vars.yml
@@ -13,28 +13,32 @@
       /usr/share/filebeat/scripts/import_dashboards -file /opt/dashboards.zip
                                                     -user {{ elastic_user }}
                                                     -pass {{ elastic_password }}
+                                                    -es http://{{ elastic_host }}:9200
 
   - name: Load the Heartbeat dashboard
     command: >
       /usr/share/heartbeat/scripts/import_dashboards -file /opt/dashboards.zip
                                                      -user {{ elastic_user }}
                                                      -pass {{ elastic_password }}
+                                                     -es http://{{ elastic_host }}:9200
 
   - name: Load the Metricbeat dashboard
     command: >
       /usr/share/metricbeat/scripts/import_dashboards -file /opt/dashboards.zip
                                                       -user {{ elastic_user }}
                                                       -pass {{ elastic_password }}
+                                                      -es http://{{ elastic_host }}:9200
 
   - name: Load the Packetbeat dashboard
     command: >
       /usr/share/packetbeat/scripts/import_dashboards -file /opt/dashboards.zip
                                                       -user {{ elastic_user }}
                                                       -pass {{ elastic_password }}
+                                                      -es http://{{ elastic_host }}:9200
 
   - name: Add a default index pattern using Metricbeat
     command: >
-      curl -XPUT "http://localhost:9200/.kibana/config/{{ elastic_version }}"
+      curl -XPUT "http://{{ elastic_host }}:9200/.kibana/config/{{ elastic_version }}"
            -u "{{ elastic_user }}:{{ elastic_password }}"
            -H "Content-Type: application/json"
            -d '{"defaultIndex" : "metricbeat-*"}'

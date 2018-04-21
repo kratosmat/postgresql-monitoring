@@ -1,8 +1,9 @@
 ---
 
-- hosts: localhost
+- hosts: elk-postgres
   become: true
-
+  vars_files:
+    - vars.yml
 
   tasks:
 

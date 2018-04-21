@@ -10,6 +10,6 @@ filebeat.prospectors:
 
 
 output.logstash:
-  hosts: ["localhost:5044"]
+  hosts: ["{{ logstash_host }}:5044"]
   username: "{{ elastic_user }}"
   password: "{{ elastic_password }}"

@@ -24,12 +24,12 @@ metricbeat.modules:
     - activity
   enabled: true
   period: 10s
-  hosts: ["postgres://localhost:5432?sslmode=disable"]
+  hosts: ["postgres://{{ postgresql_host }}:5432?sslmode=disable"]
   username: {{ postgresql_user }}
   password: {{ postgresql_password }}
 
 
 output.elasticsearch:
-  hosts: ["http://localhost:9200"]
+  hosts: ["http://{{ elastic_host }}:9200"]
   username: "{{ elastic_user }}"
   password: "{{ elastic_password }}"

@@ -6,6 +6,6 @@ filebeat.modules:
 
 
 output.elasticsearch:
-  hosts: ["localhost:9200"]
+  hosts: ["{{ elastic_host }}:9200"]
   username: "{{ elastic_user }}"
   password: "{{ elastic_password }}"

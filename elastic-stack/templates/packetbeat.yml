@@ -25,6 +25,6 @@ packetbeat.protocols.pgsql:
 
 
 output.elasticsearch:
-  hosts: ["http://localhost:9200"]
+  hosts: ["http://{{ elastic_host }}:9200"]
   username: "{{ elastic_user }}"
   password: "{{ elastic_password }}"
