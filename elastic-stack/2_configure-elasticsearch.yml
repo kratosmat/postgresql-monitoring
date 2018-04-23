@@ -112,7 +112,7 @@
 
   - name: Set the number of shards to two and the number of replicas to 0
     command: >
-      curl -XPUT 'http://elk-postgres:9200/_template/default'
+      curl -XPUT 'http://{{ elastic_host }}:9200/_template/default'
            -H "Content-Type: application/json"
            -u "{{ elastic_user }}:{{ elastic_password }}"
            -d '{

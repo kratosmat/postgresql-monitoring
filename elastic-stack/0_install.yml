@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- hosts: elk-postgres
+  gather_facts: false
   become: true
   vars_files:
     - vars.yml
@@ -128,9 +129,3 @@
       url={{ elastic_download }}/downloads/elasticsearch-plugins/ingest-user-agent/ingest-user-agent-{{ elastic_version }}.zip
       dest=/opt/ingest-user-agent.zip
 
-
-  - name: Make the shell scripts executable
-    file: path=/elastic-stack/{{ item }} mode=0755
-    with_items:
-      - all.sh
-      - fix-time.sh

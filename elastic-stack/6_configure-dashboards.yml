@@ -1,6 +1,6 @@
 ---
 
-- hosts: postgresql
+- hosts: elk-postgres
   become: true
   vars_files:
     - vars.yml
@@ -10,29 +10,25 @@
 
   - name: Load the Filebeat dashboard
     command: >
-      /usr/share/filebeat/scripts/import_dashboards -file /opt/dashboards.zip
-                                                    -user {{ elastic_user }}
+      /usr/share/filebeat/scripts/import_dashboards -user {{ elastic_user }}
                                                     -pass {{ elastic_password }}
                                                     -es http://{{ elastic_host }}:9200
 
   - name: Load the Heartbeat dashboard
     command: >
-      /usr/share/heartbeat/scripts/import_dashboards -file /opt/dashboards.zip
-                                                     -user {{ elastic_user }}
+      /usr/share/heartbeat/scripts/import_dashboards -user {{ elastic_user }}
                                                      -pass {{ elastic_password }}
                                                      -es http://{{ elastic_host }}:9200
 
   - name: Load the Metricbeat dashboard
     command: >
-      /usr/share/metricbeat/scripts/import_dashboards -file /opt/dashboards.zip
-                                                      -user {{ elastic_user }}
+      /usr/share/metricbeat/scripts/import_dashboards -user {{ elastic_user }}
                                                       -pass {{ elastic_password }}
                                                       -es http://{{ elastic_host }}:9200
 
   - name: Load the Packetbeat dashboard
     command: >
-      /usr/share/packetbeat/scripts/import_dashboards -file /opt/dashboards.zip
-                                                      -user {{ elastic_user }}
+      /usr/share/packetbeat/scripts/import_dashboards -user {{ elastic_user }}
                                                       -pass {{ elastic_password }}
                                                       -es http://{{ elastic_host }}:9200
 
