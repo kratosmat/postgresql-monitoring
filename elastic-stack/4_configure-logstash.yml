@@ -11,11 +11,6 @@
   - name: Stop Logstash
     service: name=logstash state=stopped
 
-  - name: Add X-Pack to Logstash
-    command: ./bin/logstash-plugin install file:///opt/x-pack.zip
-    args:
-      chdir: /usr/share/logstash/
-
   - name: Add the Logstash input configuration for Beats
     template: src=templates/beats-input.conf dest=/etc/logstash/conf.d/00-beats-input.conf
 

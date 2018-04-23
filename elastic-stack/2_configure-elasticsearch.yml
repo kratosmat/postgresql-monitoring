@@ -22,10 +22,6 @@
     command: /usr/share/elasticsearch/bin/elasticsearch-plugin install file:///opt/ingest-user-agent.zip --batch
     when: "'ingest-user-agent' not in elasticsearch_plugins.stdout"
 
-  - name: Add X-Pack to Elasticsearch
-    command: /usr/share/elasticsearch/bin/elasticsearch-plugin install file:///opt/x-pack.zip --batch
-    when: "'x-pack' not in elasticsearch_plugins.stdout"
-
   - name: Change Elasticsearch's memory usage to 512MB
     lineinfile:
       dest: /etc/elasticsearch/jvm.options

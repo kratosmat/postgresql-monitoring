@@ -108,12 +108,6 @@
   - name: Make sure Kibana autostarts, but is stopped until it is properly configured
     service: name=kibana enabled=yes state=stopped
 
-
-  - name: Download X-Pack
-    get_url:
-      url={{ elastic_download }}/downloads/packs/x-pack/x-pack-{{ elastic_version }}.zip
-      dest=/opt/x-pack.zip
-
   - name: Download all dashboard
     get_url:
       url={{ elastic_download }}/downloads/beats/beats-dashboards/beats-dashboards-{{ elastic_version }}.zip
