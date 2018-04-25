@@ -44,6 +44,6 @@
     service: name={{ item }} enabled=yes state=stopped
     with_items:
       - filebeat
-      - heartbeat
+      - heartbeat-elastic
       - metricbeat
       - packetbeat

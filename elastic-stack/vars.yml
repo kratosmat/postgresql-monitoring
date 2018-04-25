@@ -10,4 +10,4 @@ postgresql_user: elastic
 postgresql_password: changeme
 postgresql_host: ubuntu-16-postgresql
 
-logstash_host: ubuntu-elk
+logstash_host: ubuntu-16-elk

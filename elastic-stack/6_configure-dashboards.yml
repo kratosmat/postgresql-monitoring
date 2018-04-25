@@ -1,6 +1,6 @@
 ---
 
-- hosts: elk-postgres
+- hosts: postgresql
   become: true
   vars_files:
     - vars.yml
@@ -10,27 +10,19 @@
 
   - name: Load the Filebeat dashboard
     command: >
-      /usr/share/filebeat/scripts/import_dashboards -user {{ elastic_user }}
-                                                    -pass {{ elastic_password }}
-                                                    -es http://{{ elastic_host }}:9200
+      filebeat setup -E setup.kibana.host={{ elastic_host }}:5601 -E output.elasticsearch.hosts=[{{ elastic_host }}:9200]
 
   - name: Load the Heartbeat dashboard
     command: >
-      /usr/share/heartbeat/scripts/import_dashboards -user {{ elastic_user }}
-                                                     -pass {{ elastic_password }}
-                                                     -es http://{{ elastic_host }}:9200
+      heartbeat setup -E setup.kibana.host={{ elastic_host }}:5601 -E output.elasticsearch.hosts=[{{ elastic_host }}:9200]
 
   - name: Load the Metricbeat dashboard
     command: >
-      /usr/share/metricbeat/scripts/import_dashboards -user {{ elastic_user }}
-                                                      -pass {{ elastic_password }}
-                                                      -es http://{{ elastic_host }}:9200
+      metricbeat setup -E setup.kibana.host={{ elastic_host }}:5601 -E output.elasticsearch.hosts=[{{ elastic_host }}:9200]
 
   - name: Load the Packetbeat dashboard
     command: >
-      /usr/share/packetbeat/scripts/import_dashboards -user {{ elastic_user }}
-                                                      -pass {{ elastic_password }}
-                                                      -es http://{{ elastic_host }}:9200
+      packetbeat setup -E setup.kibana.host={{ elastic_host }}:5601 -E output.elasticsearch.hosts=[{{ elastic_host }}:9200]
 
   - name: Add a default index pattern using Metricbeat
     command: >
