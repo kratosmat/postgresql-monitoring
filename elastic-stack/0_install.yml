@@ -1,6 +1,6 @@
 ---
 
-- hosts: elk-postgres
+- hosts: sinfi-elastic
   gather_facts: false
   become: true
   vars_files:
@@ -47,32 +47,6 @@
   - name: Install dependencies to manage PostgreSQL
     pip: name=psycopg2
 
-
-  - name: Install dependencies for SQLsmith
-    apt: name={{ item }} state=latest
-    with_items:
-      - build-essential
-      - autoconf
-      - autoconf-archive
-      - libpqxx-dev
-      - libboost-regex-dev
-      - libsqlite3-dev
-
-  - name: Get SQLsmith
-    unarchive:
-      src: https://github.com/anse1/sqlsmith/archive/debian/1.0-1.zip
-      dest: /opt/
-      remote_src: true
-
-  - name: Move SQLsmith to a generic folder
-    command: mv /opt/sqlsmith-debian-1.0-1/ /opt/sqlsmith/
-
-  - name: Build SQLsmith
-    shell: autoreconf -i && ./configure && make
-    args:
-      chdir: /opt/sqlsmith/
-
-
   - name: Get Elasticsearch
     get_url:
       url={{ elastic_download }}/downloads/elasticsearch/elasticsearch-{{ elastic_version }}.deb
@@ -84,7 +58,6 @@
   - name: Make sure Elasticsearch autostarts, but is stopped until it is properly configured
     service: name=elasticsearch enabled=yes state=stopped
 
-
   - name: Get Logstash
     get_url:
       url={{ elastic_download }}/downloads/logstash/logstash-{{ elastic_version }}.deb
@@ -95,7 +68,6 @@
 
   - name: Make sure Logstash autostarts, but is stopped until it is properly configured
     service: name=logstash enabled=yes state=stopped
-
 
   - name: Get Kibana
     get_url:

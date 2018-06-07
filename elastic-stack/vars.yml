@@ -1,13 +1,13 @@
-elastic_version: 6.2.4
+elastic_version: 6.2.3
 elastic_download: https://artifacts.elastic.co
 elastic_user: elastic
 elastic_password: changeme
 elastic_host: ubuntu-16-elk
 elastic_platform: amd64
 
-postgresql_database: elastic
-postgresql_user: elastic
-postgresql_password: changeme
-postgresql_host: ubuntu-16-postgresql
+postgresql_database: sinfidb
+postgresql_user: postgres
+postgresql_password: dbpassword
+postgresql_host: ubuntu-16-elk
 
 logstash_host: ubuntu-16-elk

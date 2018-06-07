@@ -1,6 +1,6 @@
 ---
 
-- hosts: postgresql
+- hosts: elk-postgres
   become: true
   vars_files:
     - vars.yml
@@ -22,6 +22,7 @@
 
   - name: Load the Packetbeat dashboard
     command: >
+      
       packetbeat setup -E setup.kibana.host={{ elastic_host }}:5601 -E output.elasticsearch.hosts=[{{ elastic_host }}:9200]
 
   - name: Add a default index pattern using Metricbeat

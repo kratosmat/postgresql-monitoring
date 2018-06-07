@@ -5,7 +5,6 @@
   vars_files:
     - vars.yml
 
-
   tasks:
 
   - name: Get Filebeat
@@ -44,6 +43,6 @@
     service: name={{ item }} enabled=yes state=stopped
     with_items:
       - filebeat
-      - heartbeat-elastic
+      - heartbeat
       - metricbeat
       - packetbeat

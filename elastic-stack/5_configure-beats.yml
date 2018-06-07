@@ -20,6 +20,6 @@
     service: name={{ item }} state=restarted
     with_items:
       - filebeat
-      - heartbeat-elastic
+      - heartbeat
       - metricbeat
       - packetbeat

@@ -24,7 +24,7 @@ metricbeat.modules:
     - activity
   enabled: true
   period: 10s
-  hosts: ["postgres://{{ postgresql_host }}:5432?sslmode=disable"]
+  hosts: ["postgres://{{ postgresql_host }}:5433?sslmode=disable"]
   username: {{ postgresql_user }}
   password: {{ postgresql_password }}
 
